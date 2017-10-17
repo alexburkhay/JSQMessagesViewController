@@ -4,6 +4,14 @@ The changelog for `JSQMessagesViewController`. Also see the [releases](https://g
 
 --------------------------------------
 
+7.4.0
+-----
+
+Breaking changes
+
+- Removed JSQMessagesKeyboardController and implemented a proper inputAccessoryView. (#1063, #1529) Thanks @LeoNatan and @kirualex!
+- Updates for iOS 11
+
 7.3.5
 -----
 
