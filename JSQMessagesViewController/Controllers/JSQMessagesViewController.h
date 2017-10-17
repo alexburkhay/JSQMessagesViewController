@@ -44,7 +44,7 @@
  */
 @property (strong, nonatomic, readonly) JSQMessagesInputToolbar *inputToolbar;
 
-
+@property (assign, nonatomic) BOOL inputToolbarAsAccessoryView; // by default NO
 
 /**
  *  The display name of the current user who is sending messages.

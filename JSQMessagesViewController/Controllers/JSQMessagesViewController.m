@@ -178,7 +178,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.textView.accessibilityLabel = [NSBundle jsq_localizedStringForKey:@"new_message"];
 
     self.inputToolbar.contentView.textView.delegate = self;
-    [self.inputToolbar removeFromSuperview];
+    if (self.inputToolbarAsAccessoryView) {
+        [self.inputToolbar removeFromSuperview];
+    }
 
     self.automaticallyScrollsToMostRecentMessage = YES;
 
@@ -195,7 +197,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
     self.showLoadEarlierMessagesHeader = NO;
 
-    self.topContentAdditionalInset = 0.0f;
+    _topContentAdditionalInset = 0.0f;
 
     [self jsq_updateCollectionViewInsets];
 }
@@ -774,12 +776,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (UIView *)inputAccessoryView
 {
-    return self.inputToolbar;
+    return self.inputToolbarAsAccessoryView ? self.inputToolbar : nil;
 }
 
 - (BOOL)canBecomeFirstResponder
 {
-    return YES;
+    return self.inputToolbarAsAccessoryView;
 }
 
 #pragma mark - Text view delegate
@@ -860,7 +862,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)jsq_updateCollectionViewInsets
 {
-    [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length + self.topContentAdditionalInset
+    [self jsq_setCollectionViewInsetsTopValue:super.topLayoutGuide.length + self.topContentAdditionalInset
                                   bottomValue:CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
 }
 
