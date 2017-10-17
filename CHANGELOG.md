@@ -12,6 +12,11 @@ Breaking changes
 - Removed JSQMessagesKeyboardController and implemented a proper inputAccessoryView. (#1063, #1529) Thanks @LeoNatan and @kirualex!
 - Updates for iOS 11
 
+### Fixes
+
+- Fixed a number of issues regarding keyboard handling. Keyboard handling is now much more stable. (#1063, #1529, #799, #941, #1299, #558, #557)
+- Fixed potential crash with media cells. (#1377, #1741) Thanks @Lucashuang0802!
+
 7.3.5
 -----
 
