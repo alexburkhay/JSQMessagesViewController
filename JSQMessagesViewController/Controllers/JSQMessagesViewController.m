@@ -113,12 +113,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
 }
 
-
-
-@interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate>
+@interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate> {
+    __strong JSQMessagesInputToolbar *_strongInputToolbar; // holds toolbar object when its an accessory view
+}
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
-@property (strong, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
+@property (weak, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
@@ -178,8 +178,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.textView.accessibilityLabel = [NSBundle jsq_localizedStringForKey:@"new_message"];
 
     self.inputToolbar.contentView.textView.delegate = self;
-    if (self.inputToolbarAsAccessoryView) {
+    if (!self.shouldDisableInputToolbarAsAccessoryView) {
         [self.inputToolbar removeFromSuperview];
+        __strong typeof(self.inputToolbar) toolbar = self.inputToolbar;
+        _strongInputToolbar = toolbar;
+    } else {
+        self.inputToolbar.translatesAutoresizingMaskIntoConstraints = YES;
     }
 
     self.automaticallyScrollsToMostRecentMessage = YES;
@@ -776,12 +780,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (UIView *)inputAccessoryView
 {
-    return self.inputToolbarAsAccessoryView ? self.inputToolbar : nil;
+    return !self.shouldDisableInputToolbarAsAccessoryView ? self.inputToolbar : nil;
 }
 
 - (BOOL)canBecomeFirstResponder
 {
-    return self.inputToolbarAsAccessoryView;
+    return !self.shouldDisableInputToolbarAsAccessoryView;
 }
 
 #pragma mark - Text view delegate
@@ -862,7 +866,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)jsq_updateCollectionViewInsets
 {
-    [self jsq_setCollectionViewInsetsTopValue:super.topLayoutGuide.length + self.topContentAdditionalInset
+    [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length + self.topContentAdditionalInset
                                   bottomValue:CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
 }
 

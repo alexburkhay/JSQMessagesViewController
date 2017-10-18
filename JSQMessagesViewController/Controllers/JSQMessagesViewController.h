@@ -42,9 +42,9 @@
  *  Returns the input toolbar view object managed by this view controller.
  *  This view controller is the toolbar's delegate.
  */
-@property (strong, nonatomic, readonly) JSQMessagesInputToolbar *inputToolbar;
+@property (weak, nonatomic, readonly) JSQMessagesInputToolbar *inputToolbar;
 
-@property (assign, nonatomic) BOOL inputToolbarAsAccessoryView; // by default NO
+@property (assign, nonatomic) BOOL shouldDisableInputToolbarAsAccessoryView; // by default NO
 
 /**
  *  The display name of the current user who is sending messages.
