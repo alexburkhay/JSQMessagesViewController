@@ -40,6 +40,26 @@
     self.textContainer.lineFragmentPadding = 0;
     self.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
                                  NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    
+    // remove redundant gesture recognizers - to disable text selection with ability to click links etc.
+    NSArray *textViewGestureRecognizers = self.gestureRecognizers;
+    NSMutableArray *mutableArrayOfGestureRecognizers = [[NSMutableArray alloc] init];
+    for (UIGestureRecognizer *gestureRecognizer in textViewGestureRecognizers) {
+        if (![gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+            if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]
+                && ([(UITapGestureRecognizer *)gestureRecognizer numberOfTapsRequired] > 1 || [(UITapGestureRecognizer *)gestureRecognizer numberOfTouchesRequired] > 1)) {
+//                NSLog(@"--- taps req : %f", [(UITapGestureRecognizer*)gestureRecognizer ]);
+                continue;
+            }
+//            [mutableArrayOfGestureRecognizers addObject:gestureRecognizer];
+        } else {
+            UILongPressGestureRecognizer *longPressGestureRecognizer = (UILongPressGestureRecognizer *)gestureRecognizer;
+            if (longPressGestureRecognizer.minimumPressDuration < 0.3 || longPressGestureRecognizer.minimumPressDuration > 0.6) {
+                [mutableArrayOfGestureRecognizers addObject:gestureRecognizer];
+            }
+        }
+    }
+    self.gestureRecognizers = mutableArrayOfGestureRecognizers;
 }
 
 - (void)setSelectedRange:(NSRange)selectedRange

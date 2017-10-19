@@ -46,6 +46,8 @@
 
 @property (assign, nonatomic) BOOL shouldDisableInputToolbarAsAccessoryView; // by default NO
 
+@property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
+
 /**
  *  The display name of the current user who is sending messages.
  *

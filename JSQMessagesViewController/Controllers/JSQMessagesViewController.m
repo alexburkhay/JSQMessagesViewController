@@ -127,8 +127,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 @property (assign, nonatomic) BOOL jsq_isObserving;
 
-@property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
-
 @property (weak, nonatomic) UIGestureRecognizer *currentInteractivePopGestureRecognizer;
 
 @property (assign, nonatomic) BOOL textViewWasFirstResponderDuringInteractivePop;
