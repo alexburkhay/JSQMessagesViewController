@@ -246,10 +246,21 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)setupKeyboardTracker {
     __weak typeof(self) weakSelf = self;
-    self.keyboardTracker = [[self.keyboardTrackerClass alloc] initWithViewController:self inputContainer:self.inputToolbar layoutBlock:^(CGFloat bottomMargin) {
+    self.keyboardTracker = [[self.keyboardTrackerClass alloc] initWithViewController:self inputContainer:self.inputToolbar layoutBlock:^(CGFloat bottomMargin, double animDuration, NSInteger animationCurve) {
 //        sSelf.isAdjustingInputContainer = true
         weakSelf.toolbarBottomLayoutGuide.constant = MAX(bottomMargin, weakSelf.bottomLayoutGuide.length);
-        [weakSelf.view layoutIfNeeded];
+//        [weakSelf.view layoutIfNeeded];
+        if (animDuration > 0) {
+            [UIView animateWithDuration:animDuration
+                                  delay:0.0
+                                options:animationCurve
+                             animations:^{
+                                 [weakSelf jsq_updateCollectionViewInsets];
+                             }
+                             completion:nil];
+        } else {
+            [weakSelf jsq_updateCollectionViewInsets];
+        }        
 //        sSelf.isAdjustingInputContainer = false
     } notificationCenter:[NSNotificationCenter defaultCenter]];
     
@@ -358,7 +369,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self.keyboardTracker adjustTrackingViewSizeIfNeeded];
-    [self jsq_updateCollectionViewInsets];
 }
 
 #pragma mark - View rotation
@@ -953,10 +963,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 {
     if (registerForNotifications) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(jsq_didReceiveKeyboardWillChangeFrameNotification:)
-                                                     name:UIKeyboardWillChangeFrameNotification
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(jsq_didReceiveKeyboardWillChangeFrameNotification:)
+//                                                     name:UIKeyboardWillChangeFrameNotification
+//                                                   object:nil];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMenuWillShowNotification:)

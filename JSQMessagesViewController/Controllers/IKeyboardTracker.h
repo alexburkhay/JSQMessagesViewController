@@ -12,7 +12,7 @@
 
 @protocol IKeyboardTracker <NSObject>
 
-- (instancetype)initWithViewController:(UIViewController *)viewController inputContainer:(UIView *)inputContainer layoutBlock:(void (^)(CGFloat))layoutBlock notificationCenter:(NSNotificationCenter * _Nonnull)notificationCenter;
+- (instancetype)initWithViewController:(UIViewController *)viewController inputContainer:(UIView *)inputContainer layoutBlock:(void (^)(CGFloat, double, NSInteger))layoutBlock notificationCenter:(NSNotificationCenter * _Nonnull)notificationCenter;
 
 - (UIView *)trackingView;
 
