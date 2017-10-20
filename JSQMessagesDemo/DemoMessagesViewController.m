@@ -18,7 +18,13 @@
 
 #import "DemoMessagesViewController.h"
 
+#import "JSQMessages-Swift.h"
+
 @implementation DemoMessagesViewController
+
+- (void)setupOnInit {
+    self.keyboardTrackerClass = [KeyboardTracker class];
+}
 
 #pragma mark - View lifecycle
 

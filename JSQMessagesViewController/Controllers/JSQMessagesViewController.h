@@ -22,6 +22,8 @@
 #import "JSQMessagesCollectionViewFlowLayout.h"
 #import "JSQMessagesInputToolbar.h"
 
+#import "IKeyboardTracker.h"
+
 /**
  *  The `JSQMessagesViewController` class is an abstract class that represents a view controller whose content consists of
  *  a `JSQMessagesCollectionView` and `JSQMessagesInputToolbar` and is specialized to display a messaging interface.
@@ -45,6 +47,9 @@
 @property (weak, nonatomic, readonly) JSQMessagesInputToolbar *inputToolbar;
 
 @property (assign, nonatomic) BOOL shouldDisableInputToolbarAsAccessoryView; // by default NO
+
+@property (strong, nonatomic) id<IKeyboardTracker> keyboardTracker;
+@property (strong, nonatomic) Class keyboardTrackerClass;
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 
@@ -171,6 +176,8 @@
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
 
 #pragma mark - Class methods
+
+- (void)setupOnInit;
 
 /**
  *  Returns the `UINib` object initialized for a `JSQMessagesViewController`.

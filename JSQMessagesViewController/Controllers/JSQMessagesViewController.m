@@ -41,7 +41,6 @@
 
 #import <objc/runtime.h>
 
-
 // Fixes rdar://26295020
 // See issue #1247 and Peter Steinberger's comment:
 // https://github.com/jessesquires/JSQMessagesViewController/issues/1247#issuecomment-219386199
@@ -113,6 +112,17 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
 }
 
+@interface BaseChatViewControllerView: UIView
+@property (nonatomic, weak) UIView *bmaInputAccessoryView;
+@end
+
+@implementation BaseChatViewControllerView
+- (UIView *)inputAccessoryView {
+    return self.bmaInputAccessoryView;
+}
+@end
+    
+
 @interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate> {
     __strong JSQMessagesInputToolbar *_strongInputToolbar; // holds toolbar object when its an accessory view
 }
@@ -159,6 +169,35 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 #pragma mark - Initialization
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setupOnInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setupOnInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setupOnInit];
+    }
+    return self;
+}
+
+- (void)setupOnInit {}
+
 - (void)jsq_configureMessagesViewController
 {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -181,7 +220,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         __strong typeof(self.inputToolbar) toolbar = self.inputToolbar;
         _strongInputToolbar = toolbar;
     } else {
-        self.inputToolbar.translatesAutoresizingMaskIntoConstraints = YES;
+        self.inputToolbar.translatesAutoresizingMaskIntoConstraints = NO;
+        [self setupKeyboardTracker];
     }
 
     self.automaticallyScrollsToMostRecentMessage = YES;
@@ -202,6 +242,18 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     _topContentAdditionalInset = 0.0f;
 
     [self jsq_updateCollectionViewInsets];
+}
+
+- (void)setupKeyboardTracker {
+    __weak typeof(self) weakSelf = self;
+    self.keyboardTracker = [[self.keyboardTrackerClass alloc] initWithViewController:self inputContainer:self.inputToolbar layoutBlock:^(CGFloat bottomMargin) {
+//        sSelf.isAdjustingInputContainer = true
+        weakSelf.toolbarBottomLayoutGuide.constant = MAX(bottomMargin, weakSelf.bottomLayoutGuide.length);
+        [weakSelf.view layoutIfNeeded];
+//        sSelf.isAdjustingInputContainer = false
+    } notificationCenter:[NSNotificationCenter defaultCenter]];
+    
+    [(BaseChatViewControllerView *)self.view setBmaInputAccessoryView:self.keyboardTracker.trackingView];
 }
 
 - (void)dealloc
@@ -249,10 +301,15 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 #pragma mark - View lifecycle
 
+//- (void)loadView {
+//    self.view = [[BaseChatViewControllerView alloc] init];
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.shouldDisableInputToolbarAsAccessoryView = YES;
+    
     [[[self class] nib] instantiateWithOwner:self options:nil];
 
     [self jsq_configureMessagesViewController];
@@ -265,6 +322,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     NSParameterAssert(self.senderDisplayName != nil);
 
     [super viewWillAppear:animated];
+    [self.keyboardTracker startTracking];
+    
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
@@ -287,6 +346,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.keyboardTracker stopTracking];
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
@@ -295,6 +355,11 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [super viewDidDisappear:animated];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.keyboardTracker adjustTrackingViewSizeIfNeeded];
+    [self jsq_updateCollectionViewInsets];
+}
 
 #pragma mark - View rotation
 
