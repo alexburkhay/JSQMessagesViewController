@@ -23,7 +23,11 @@
 
 @implementation UIImage (JSQMessages)
 
-- (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor
+- (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor {
+    return [self jsq_imageMaskedWithColor:maskColor andBackgroundColor:nil];
+}
+
+- (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor andBackgroundColor:(UIColor *)bgColor
 {
     NSParameterAssert(maskColor != nil);
     
@@ -36,6 +40,10 @@
         
         CGContextScaleCTM(context, 1.0f, -1.0f);
         CGContextTranslateCTM(context, 0.0f, -(imageRect.size.height));
+        if (bgColor) {
+            CGContextSetFillColorWithColor(context, bgColor.CGColor);
+            CGContextFillRect(context, imageRect);
+        }
         
         CGContextClipToMask(context, imageRect, self.CGImage);
         CGContextSetFillColorWithColor(context, maskColor.CGColor);

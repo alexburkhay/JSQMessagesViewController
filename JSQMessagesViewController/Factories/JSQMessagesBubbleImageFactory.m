@@ -60,14 +60,22 @@
 
 #pragma mark - Public
 
-- (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithColor:(UIColor *)color
-{
-    return [self jsq_messagesBubbleImageWithColor:color flippedForIncoming:NO];
+- (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithColor:(UIColor *)color {
+    return [self outgoingMessagesBubbleImageWithColor:color andBackgroundColor:nil];
 }
 
-- (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithColor:(UIColor *)color
+- (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithColor:(UIColor *)color andBackgroundColor:(UIColor *)bgColor
 {
-    return [self jsq_messagesBubbleImageWithColor:color flippedForIncoming:YES];
+    return [self jsq_messagesBubbleImageWithColor:color flippedForIncoming:NO andBackgroundColor:bgColor];
+}
+
+- (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithColor:(UIColor *)color {
+    return [self incomingMessagesBubbleImageWithColor:color andBackgroundColor:nil];
+}
+
+- (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithColor:(UIColor *)color andBackgroundColor:(UIColor *)bgColor
+{
+    return [self jsq_messagesBubbleImageWithColor:color flippedForIncoming:YES andBackgroundColor:bgColor];
 }
 
 #pragma mark - Private
@@ -79,12 +87,12 @@
     return UIEdgeInsetsMake(center.y, center.x, center.y, center.x);
 }
 
-- (JSQMessagesBubbleImage *)jsq_messagesBubbleImageWithColor:(UIColor *)color flippedForIncoming:(BOOL)flippedForIncoming
+- (JSQMessagesBubbleImage *)jsq_messagesBubbleImageWithColor:(UIColor *)color flippedForIncoming:(BOOL)flippedForIncoming andBackgroundColor:(UIColor *)bgColor
 {
     NSParameterAssert(color != nil);
     
-    UIImage *normalBubble = [self.bubbleImage jsq_imageMaskedWithColor:color];
-    UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithColor:[color jsq_colorByDarkeningColorWithValue:0.12f]];
+    UIImage *normalBubble = [self.bubbleImage jsq_imageMaskedWithColor:color andBackgroundColor:bgColor];
+    UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithColor:[color jsq_colorByDarkeningColorWithValue:0.12f] andBackgroundColor:bgColor];
     
     if (flippedForIncoming) {
         normalBubble = [self jsq_horizontallyFlippedImageFromImage:normalBubble];

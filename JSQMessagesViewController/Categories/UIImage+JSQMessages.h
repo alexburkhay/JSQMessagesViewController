@@ -29,6 +29,8 @@
  */
 - (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor;
 
+- (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor andBackgroundColor:(UIColor *)bgColor;
+
 /**
  *  @return The regular message bubble image.
  */
