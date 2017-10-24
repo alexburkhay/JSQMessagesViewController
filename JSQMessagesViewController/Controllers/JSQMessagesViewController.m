@@ -251,8 +251,12 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     __weak typeof(self) weakSelf = self;
     self.keyboardTracker = [[self.keyboardTrackerClass alloc] initWithViewController:self inputContainer:self.inputToolbar layoutBlock:^(CGFloat bottomMargin, double animDuration, NSInteger animationCurve) {
 //        sSelf.isAdjustingInputContainer = true
-//        weakSelf.toolbarBottomLayoutGuide.constant = ;
+//        weakSelf.toolbarBottomLayoutGuide.constant = MAX(bottomMargin, weakSelf.bottomLayoutGuide.length);
 //        [weakSelf.view layoutIfNeeded];
+        if (!weakSelf || (![weakSelf.inputToolbar.contentView.textView isFirstResponder] && weakSelf.toolbarBottomLayoutGuide.constant == 0.0)) {
+            return;
+        }
+        
         [UIView animateWithDuration:animDuration
                               delay:0.0
                             options:animationCurve
@@ -260,11 +264,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                              [weakSelf jsq_setToolbarBottomLayoutGuideConstant:MAX(bottomMargin, weakSelf.bottomLayoutGuide.length)];
                          }
                          completion:nil];
-//        if (animDuration > 0) {
-//
-//        } else {
-//            [weakSelf jsq_updateCollectionViewInsets];
-//        }
 //        sSelf.isAdjustingInputContainer = false
     } notificationCenter:[NSNotificationCenter defaultCenter]];
     
