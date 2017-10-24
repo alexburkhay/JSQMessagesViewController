@@ -1130,11 +1130,14 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 - (void)jsq_registerForNotifications:(BOOL)registerForNotifications
 {
     if (registerForNotifications) {
-        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(jsq_didReceiveKeyboardWillChangeFrameNotification:)
-//                                                     name:UIKeyboardWillChangeFrameNotification
-//                                                   object:nil];
+
+        if (!self.shouldDisableInputToolbarAsAccessoryView) {
+            // only for input accessory view case, keyboard tracker will handle otherwise
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(jsq_didReceiveKeyboardWillChangeFrameNotification:)
+                                                         name:UIKeyboardWillChangeFrameNotification
+                                                       object:nil];
+        }
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMenuWillShowNotification:)
@@ -1167,5 +1170,30 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     }
 }
 
+// for inputaccessory view
+- (void)jsq_didReceiveKeyboardWillChangeFrameNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    
+    CGRect keyboardEndFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    if (CGRectIsNull(keyboardEndFrame)) {
+        return;
+    }
+    
+    UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    NSInteger animationCurveOption = (animationCurve << 16);
+    
+    double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:animationCurveOption
+                     animations:^{
+                         [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
+                                                       bottomValue:CGRectGetHeight(keyboardEndFrame)];
+                     }
+                     completion:nil];
+}
 
 @end
