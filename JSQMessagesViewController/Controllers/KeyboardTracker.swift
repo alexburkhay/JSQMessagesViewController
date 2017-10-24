@@ -59,6 +59,7 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
     var isTracking = false
     var inputContainer: UIView
     private var notificationCenter: NotificationCenter
+    private let callStatusDelta: CGFloat = 20.0
     
     struct LayoutInfo {
         var bottomMargin: CGFloat
@@ -151,7 +152,11 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         guard rect.height > 0 else { return 0 }
         let rectInView = self.view.convert(rect, from: nil)
         guard rectInView.maxY >=~ self.view.bounds.height else { return 0 } // Undocked keyboard
-        return max(0, self.view.bounds.height - rectInView.minY - self.keyboardTrackerView.intrinsicContentSize.height)
+        var maxHeight = self.view.bounds.height - rectInView.minY - self.keyboardTrackerView.intrinsicContentSize.height
+        if (rectInView.height - callStatusDelta <= maxHeight) && (maxHeight <= rectInView.height + callStatusDelta)  {
+            maxHeight = rectInView.height
+        }
+        return max(0, maxHeight)
     }
     
     private func animDurationFromNotification(_ notification: Notification) -> LayoutInfo? {
