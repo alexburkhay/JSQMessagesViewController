@@ -60,7 +60,12 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
     var inputContainer: UIView
     private var notificationCenter: NotificationCenter
     
-    typealias LayoutBlock = (_ bottomMargin: CGFloat) -> Void
+    struct LayoutInfo {
+        var bottomMargin: CGFloat
+        var animDuration: Double
+        var animCurve: Int
+    }
+    typealias LayoutBlock = (_ bottomMargin: CGFloat, _ animDuration: Double, _ animCurve: Int) -> Void
     private var layoutBlock: LayoutBlock
     
     init(viewController: UIViewController, inputContainer: UIView, layoutBlock: @escaping LayoutBlock, notificationCenter: NotificationCenter) {
@@ -95,7 +100,12 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         let bottomConstraint = self.bottomConstraintFromNotification(notification)
         guard bottomConstraint > 0 else { return } // Some keyboards may report initial willShow/DidShow notifications with invalid positions
         self.keyboardStatus = .showing
-        self.layoutInputContainer(withBottomConstraint: bottomConstraint)
+        var layoutInfo = self.animDurationFromNotification(notification)
+        layoutInfo?.bottomMargin = bottomConstraint
+        if layoutInfo == nil {
+            layoutInfo = LayoutInfo(bottomMargin: bottomConstraint, animDuration: 0, animCurve: 0)
+        }
+        self.layoutInputContainer(layoutInfo: layoutInfo!)
     }
     
     @objc
@@ -106,7 +116,12 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         let bottomConstraint = self.bottomConstraintFromNotification(notification)
         guard bottomConstraint > 0 else { return } // Some keyboards may report initial willShow/DidShow notifications with invalid positions
         self.keyboardStatus = .shown
-        self.layoutInputContainer(withBottomConstraint: bottomConstraint)
+        var layoutInfo = self.animDurationFromNotification(notification)
+        layoutInfo?.bottomMargin = bottomConstraint
+        if layoutInfo == nil {
+            layoutInfo = LayoutInfo(bottomMargin: bottomConstraint, animDuration: 0, animCurve: 0)
+        }
+        self.layoutInputContainer(layoutInfo: layoutInfo!)
         self.adjustTrackingViewSizeIfNeeded()
     }
     
@@ -116,7 +131,11 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         let bottomConstraint = self.bottomConstraintFromNotification(notification)
         if bottomConstraint == 0 {
             self.keyboardStatus = .hidden
-            self.layoutInputAtBottom()
+            var layoutInfo = self.animDurationFromNotification(notification)
+            if layoutInfo == nil {
+                layoutInfo = LayoutInfo(bottomMargin: bottomConstraint, animDuration: 0, animCurve: 0)
+            }
+            self.layoutInputAtBottom(layoutInfo: layoutInfo)
         }
     }
     
@@ -124,7 +143,7 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
     private func keyboardWillHide(_ notification: Notification) {
         guard self.isTracking else { return }
         self.keyboardStatus = .hidden
-        self.layoutInputAtBottom()
+        self.layoutInputAtBottom(layoutInfo: LayoutInfo(bottomMargin: 0, animDuration: 0, animCurve: 0))
     }
     
     private func bottomConstraintFromNotification(_ notification: Notification) -> CGFloat {
@@ -133,6 +152,14 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         let rectInView = self.view.convert(rect, from: nil)
         guard rectInView.maxY >=~ self.view.bounds.height else { return 0 } // Undocked keyboard
         return max(0, self.view.bounds.height - rectInView.minY - self.keyboardTrackerView.intrinsicContentSize.height)
+    }
+    
+    private func animDurationFromNotification(_ notification: Notification) -> LayoutInfo? {
+        guard let value = ((notification as NSNotification).userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue else { return nil }
+        guard value > 0 else { return nil }
+        let animationCurve = ((notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue
+//        let animationCurveOption = UIViewAnimationOptions(rawValue: UInt(animationCurve ?? 0));
+        return LayoutInfo(bottomMargin: 0, animDuration: value, animCurve: animationCurve ?? 0)
     }
     
     private func bottomConstraintFromTrackingView() -> CGFloat {
@@ -156,20 +183,20 @@ func >=~ (lhs: CGFloat, rhs: CGFloat) -> Bool {
         }
     }
     
-    private func layoutInputAtBottom() {
+    private func layoutInputAtBottom(layoutInfo info: LayoutInfo!) {
         self.keyboardTrackerView.bounds.size.height = 0
-        self.layoutInputContainer(withBottomConstraint: 0)
+        self.layoutInputContainer(layoutInfo: info)
     }
     
     var isPerformingForcedLayout: Bool = false
     func layoutInputAtTrackingViewIfNeeded() {
         guard self.isTracking && self.keyboardStatus == .shown else { return }
-        self.layoutInputContainer(withBottomConstraint: self.bottomConstraintFromTrackingView())
+        self.layoutInputContainer(layoutInfo: LayoutInfo(bottomMargin: self.bottomConstraintFromTrackingView(), animDuration: 0, animCurve: 0))
     }
     
-    private func layoutInputContainer(withBottomConstraint constraint: CGFloat) {
+    private func layoutInputContainer(layoutInfo info: LayoutInfo) {
         self.isPerformingForcedLayout = true
-        self.layoutBlock(constraint)
+        self.layoutBlock(info.bottomMargin, info.animDuration, info.animCurve)
         self.isPerformingForcedLayout = false
     }
 }
