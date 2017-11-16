@@ -310,7 +310,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
             [self jsq_configureMessageCellLayoutAttributes:attributesItem];
         }
         else {
-            attributesItem.zIndex = -1;
+//            attributesItem.zIndex = -1;
+//            [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
         }
     }];
     
