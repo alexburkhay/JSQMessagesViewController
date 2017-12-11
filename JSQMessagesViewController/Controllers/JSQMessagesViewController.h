@@ -289,6 +289,7 @@
  * @param animated Pass `YES` if you want to animate scrolling, `NO` otherwise.
  */
 - (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+- (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated prefferedPosition:(UICollectionViewScrollPosition)prefferedPosition;
 
 /**
  Call to super required.

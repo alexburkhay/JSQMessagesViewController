@@ -504,9 +504,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [self scrollToIndexPath:lastCell animated:animated];
 }
 
+- (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+    [self scrollToIndexPath:indexPath animated:animated prefferedPosition:UICollectionViewScrollPositionNone];
+}
 
-- (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated
-{
+- (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated prefferedPosition:(UICollectionViewScrollPosition)prefferedPosition {
     if ([self.collectionView numberOfSections] <= indexPath.section) {
         return;
     }
@@ -539,7 +541,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                          - self.collectionView.contentInset.top
                                          - self.collectionView.contentInset.bottom
                                          - CGRectGetHeight(self.inputToolbar.bounds);
-    UICollectionViewScrollPosition scrollPosition = (cellSize.height > maxHeightForVisibleMessage) ? UICollectionViewScrollPositionBottom : UICollectionViewScrollPositionTop;
+    UICollectionViewScrollPosition scrollPosition = (cellSize.height > maxHeightForVisibleMessage) ? UICollectionViewScrollPositionBottom : (prefferedPosition != UICollectionViewScrollPositionNone ? prefferedPosition : UICollectionViewScrollPositionTop);
 
     [self.collectionView scrollToItemAtIndexPath:indexPath
                                 atScrollPosition:scrollPosition
