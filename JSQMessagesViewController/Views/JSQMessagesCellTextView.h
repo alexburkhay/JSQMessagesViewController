@@ -26,4 +26,7 @@
 
 @property (nonatomic, assign) CGFloat customLineFragmentPadding;
 
+@property (nonatomic, strong) NSDictionary *customlinkTextAttributes;
+@property (nonatomic, assign) UIDataDetectorTypes customDataDetectorTypes;
+
 @end

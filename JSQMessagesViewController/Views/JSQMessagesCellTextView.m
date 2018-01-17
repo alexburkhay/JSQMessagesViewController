@@ -28,7 +28,7 @@
     self.editable = NO;
     self.selectable = YES;
     self.userInteractionEnabled = YES;
-    self.dataDetectorTypes = UIDataDetectorTypeNone;
+    self.dataDetectorTypes = self.customDataDetectorTypes;
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
     self.scrollEnabled = NO;
@@ -38,8 +38,12 @@
     self.contentOffset = CGPointZero;
     self.textContainerInset = UIEdgeInsetsZero;
     self.textContainer.lineFragmentPadding = self.customLineFragmentPadding > 0.f ? self.customLineFragmentPadding : 0;
-    self.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
-                                 NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    if (self.customlinkTextAttributes) {
+        self.linkTextAttributes = self.customlinkTextAttributes;
+    } else {
+        self.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor blueColor],
+                                     NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    }
     
     // remove redundant gesture recognizers - to disable text selection with ability to click links etc.
     NSArray *textViewGestureRecognizers = self.gestureRecognizers;
@@ -67,6 +71,11 @@
     if (customLineFragmentPadding >= 0) {
         self.textContainer.lineFragmentPadding = customLineFragmentPadding;
     }
+}
+
+- (void)setCustomDataDetectorTypes:(UIDataDetectorTypes)customDataDetectorTypes {
+    _customDataDetectorTypes = customDataDetectorTypes;
+    self.dataDetectorTypes = _customDataDetectorTypes;
 }
 
 - (void)setSelectedRange:(NSRange)selectedRange
