@@ -95,6 +95,10 @@
     return self.hash;
 }
 
+- (NSString *)formattedText {
+    return _text;
+}
+
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object

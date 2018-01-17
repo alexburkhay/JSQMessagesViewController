@@ -116,14 +116,14 @@
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets;
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - spacingBetweenAvatarAndBubble - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
 
-//        NSString *text = [messageData text];
+//        NSString *text = [messageData formattedText];
 //        if ([text containsString:@"above doesnt work"]) {
 //            CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
 //                                                          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
 //                                                       attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
 //                                                          context:nil];
 //        }
-        CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
+        CGRect stringRect = [[messageData formattedText] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
                                                              options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
                                                           attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
                                                              context:nil];

@@ -84,11 +84,18 @@
 @optional
 
 /**
- *  @return The body text of the message.
+ *  @return The original body text of the message.
  *
  *  @warning You must not return `nil` from this method.
  */
 - (NSString *)text;
+
+/**
+ *  @return The formatted body text of the message.
+ *
+ *  @warning You must not return `nil` from this method.
+ */
+- (NSString *)formattedText;
 
 /**
  *  @return The media item of the message.

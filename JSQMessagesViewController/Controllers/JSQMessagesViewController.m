@@ -784,7 +784,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 {
     if (action == @selector(copy:)) {
         id<JSQMessageData> messageData = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
-        [[UIPasteboard generalPasteboard] setString:[messageData text]];
+        [[UIPasteboard generalPasteboard] setString:[messageData formattedText]];
     }
     else if (action == @selector(delete:)) {
         [collectionView.dataSource collectionView:collectionView didDeleteMessageAtIndexPath:indexPath];
