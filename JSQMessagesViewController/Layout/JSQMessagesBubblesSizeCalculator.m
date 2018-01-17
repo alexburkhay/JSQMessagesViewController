@@ -114,10 +114,10 @@
         CGFloat horizontalFrameInsets = layout.messageBubbleTextViewFrameInsets.left + layout.messageBubbleTextViewFrameInsets.right;
 
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets;
-        CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - spacingBetweenAvatarAndBubble - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal + self.additionalInset;
+        CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - spacingBetweenAvatarAndBubble - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
 
 //        NSString *text = [messageData text];
-//        if ([text containsString:@"Skrill has been"]) {
+//        if ([text containsString:@"above doesnt work"]) {
 //            CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
 //                                                          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
 //                                                       attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
@@ -138,7 +138,7 @@
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + self.additionalInset;
 
         //  same as above, an extra 2 points of magix
-        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
+        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth);
 
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
     }
