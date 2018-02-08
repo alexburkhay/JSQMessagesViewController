@@ -125,11 +125,11 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObservingContext;
 
 @interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate> {
-    __strong JSQMessagesInputToolbar *_strongInputToolbar; // holds toolbar object when its an accessory view
+    __strong BudMessagesInputToolbar *_strongInputToolbar; // holds toolbar object when its an accessory view
 }
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
+@property (weak, nonatomic) IBOutlet BudMessagesInputToolbar *inputToolbar;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
@@ -440,12 +440,16 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)didPressSendButton:(UIButton *)button
            withMessageText:(NSString *)text
+          andVoiceMessage:(NSURL*)voiceMessageURL
                   senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
+
+
+
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
@@ -840,6 +844,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     else {
         [self didPressSendButton:sender
                  withMessageText:[self jsq_currentlyComposedMessageText]
+                 andVoiceMessage:[self bud_currentVoiceMessageURL]
                         senderId:self.senderId
                senderDisplayName:self.senderDisplayName
                             date:[NSDate date]];
@@ -851,6 +856,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     if (toolbar.sendButtonOnRight) {
         [self didPressSendButton:sender
                  withMessageText:[self jsq_currentlyComposedMessageText]
+                 andVoiceMessage: [self bud_currentVoiceMessageURL]
                         senderId:self.senderId
                senderDisplayName:self.senderDisplayName
                             date:[NSDate date]];
@@ -867,6 +873,10 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [self.inputToolbar.contentView.textView.inputDelegate selectionDidChange:self.inputToolbar.contentView.textView];
 
     return [self.inputToolbar.contentView.textView.text jsq_stringByTrimingWhitespace];
+}
+
+-(NSURL*)bud_currentVoiceMessageURL {
+    return self.inputToolbar.contentView.voiceMessage;
 }
 
 - (UIView *)inputAccessoryView

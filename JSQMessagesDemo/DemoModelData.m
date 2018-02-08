@@ -54,6 +54,11 @@
                                                                                             textColor:[UIColor colorWithWhite:0.60f alpha:1.0f]
                                                                                                  font:[UIFont systemFontOfSize:14.0f]
                                                                                              diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+        JSQMessagesAvatarImage *budImage = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:@"Bud"
+                                                                                      backgroundColor:[UIColor redColor]
+                                                                                            textColor:[UIColor whiteColor]
+                                                                                                 font:[UIFont systemFontOfSize:14.0f]
+                                                                                             diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
         
         JSQMessagesAvatarImage *cookImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"demo_avatar_cook"]
                                                                                        diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
@@ -67,13 +72,17 @@
         self.avatars = @{ kJSQDemoAvatarIdSquires : jsqImage,
                           kJSQDemoAvatarIdCook : cookImage,
                           kJSQDemoAvatarIdJobs : jobsImage,
-                          kJSQDemoAvatarIdWoz : wozImage };
+                          kJSQDemoAvatarIdWoz : wozImage,
+                          kJSQDemoAvatarIdBud: budImage
+                          };
         
         
         self.users = @{ kJSQDemoAvatarIdJobs : kJSQDemoAvatarDisplayNameJobs,
                         kJSQDemoAvatarIdCook : kJSQDemoAvatarDisplayNameCook,
                         kJSQDemoAvatarIdWoz : kJSQDemoAvatarDisplayNameWoz,
-                        kJSQDemoAvatarIdSquires : kJSQDemoAvatarDisplayNameSquires };
+                        kJSQDemoAvatarIdSquires : kJSQDemoAvatarDisplayNameSquires,
+                        kJSQDemoAvatarIdBud: kJSQDemoAvatarDisplayNameBud
+                        };
         
         
         /**
@@ -99,6 +108,7 @@
      *  You should have a mutable array or orderedSet, or something.
      */
     self.messages = [[NSMutableArray alloc] initWithObjects:
+                     /*
                      [[JSQMessage alloc] initWithSenderId:kJSQDemoAvatarIdSquires
                                         senderDisplayName:kJSQDemoAvatarDisplayNameSquires
                                                      date:[NSDate distantPast]
@@ -127,7 +137,8 @@
                      [[JSQMessage alloc] initWithSenderId:kJSQDemoAvatarIdSquires
                                         senderDisplayName:kJSQDemoAvatarDisplayNameSquires
                                                      date:[NSDate date]
-                                                     text:@"Now with media messages!"],
+                                                     text:@"Now with media messages!"],
+                      */
                      nil];
     
     [self addPhotoMediaMessage];

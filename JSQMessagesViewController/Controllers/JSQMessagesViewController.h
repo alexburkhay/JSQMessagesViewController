@@ -20,7 +20,7 @@
 
 #import "JSQMessagesCollectionView.h"
 #import "JSQMessagesCollectionViewFlowLayout.h"
-#import "JSQMessagesInputToolbar.h"
+#import "BudMessagesInputToolbar.h"
 
 #import "IKeyboardTracker.h"
 
@@ -44,7 +44,7 @@
  *  Returns the input toolbar view object managed by this view controller.
  *  This view controller is the toolbar's delegate.
  */
-@property (weak, nonatomic, readonly) JSQMessagesInputToolbar *inputToolbar;
+@property (weak, nonatomic, readonly) BudMessagesInputToolbar *inputToolbar;
 
 @property (assign, nonatomic) BOOL shouldDisableInputToolbarAsAccessoryView; // by default NO
 

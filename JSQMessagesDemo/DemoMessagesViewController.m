@@ -19,6 +19,7 @@
 #import "DemoMessagesViewController.h"
 
 #import "JSQMessages-Swift.h"
+//#import "BudMessagesToolbarContentView.h"
 
 @implementation DemoMessagesViewController
 
@@ -41,13 +42,13 @@
 {
     [super viewDidLoad];
     
-    self.title = @"JSQMessages";
+    self.title = @"Testing input...";
     
     /**
      *  You MUST set your senderId and display name
      */
-    self.senderId = kJSQDemoAvatarIdSquires;
-    self.senderDisplayName = kJSQDemoAvatarDisplayNameSquires;
+    self.senderId = kJSQDemoAvatarIdBud;
+    self.senderDisplayName = kJSQDemoAvatarDisplayNameBud;
     
     self.inputToolbar.contentView.textView.jsqPasteDelegate = self;
     
@@ -68,12 +69,12 @@
         self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     }
     
-    self.showLoadEarlierMessagesHeader = YES;
+    self.showLoadEarlierMessagesHeader = NO;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage jsq_defaultTypingIndicatorImage]
-                                                                              style:UIBarButtonItemStyleBordered
-                                                                             target:self
-                                                                             action:@selector(receiveMessagePressed:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage jsq_defaultTypingIndicatorImage]
+//                                                                              style:UIBarButtonItemStyleBordered
+//                                                                             target:self
+//                                                                             action:@selector(receiveMessagePressed:)];
 
     /**
      *  Register custom menu actions for cells.
@@ -98,6 +99,9 @@
      *
      *  self.inputToolbar.maximumHeight = 150;
      */
+    
+    [(BudMessagesToolbarContentView*)self.inputToolbar.contentView customizeForBud];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,6 +113,9 @@
                                                                                               target:self
                                                                                               action:@selector(closePressed:)];
     }
+    
+
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -332,6 +339,7 @@
 
 - (void)didPressSendButton:(UIButton *)button
            withMessageText:(NSString *)text
+           andVoiceMessage:(NSURL*)voiceMessageURL
                   senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
@@ -345,11 +353,20 @@
      */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId
-                                             senderDisplayName:senderDisplayName
-                                                          date:date
-                                                          text:text];
-    
+    JSQMessage *message;
+
+    if (voiceMessageURL) {
+        NSData *audioData = [NSData dataWithContentsOfURL:voiceMessageURL];
+        JSQAudioMediaItem *audioItem = [[JSQAudioMediaItem alloc] initWithData:audioData];
+        message = [JSQMessage messageWithSenderId:senderId
+                                                       displayName:senderDisplayName
+                                                             media:audioItem];
+    } else {
+       message  = [[JSQMessage alloc] initWithSenderId:senderId
+                                                 senderDisplayName:senderDisplayName
+                                                              date:date
+                                                              text:text];
+    }
     [self.demoData.messages addObject:message];
     
     [self finishSendingMessageAnimated:YES];
