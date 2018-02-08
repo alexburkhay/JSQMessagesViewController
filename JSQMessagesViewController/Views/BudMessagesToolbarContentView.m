@@ -82,7 +82,7 @@ const int kButtonRegister = 1;
 
 -(void)customizeForBud {
     [self.cancelRecordingButton setHidden:NO];
-
+    
     [self.recordingImageView setImage:[UIImage jsq_bubbleImageFromBundleWithName:@"btnMicRed"]];
 
     [self showRecordingView:NO];
@@ -92,8 +92,7 @@ const int kButtonRegister = 1;
     self.textView.layer.cornerRadius = 15.f;
     self.textView.placeHolder = @"";
     
-    self.textView.textContainerInset = UIEdgeInsetsMake(4, 8, 4, 8);
-    
+    self.textView.textContainerInset = UIEdgeInsetsMake(4, 8, 4, 8);    
 }
 
 -(void)setLeftButton {
@@ -198,13 +197,12 @@ const int kButtonRegister = 1;
 //    [_recorderSettings setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
 //    [_recorderSettings setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
-    // Create a new audio file
-    _audioFileName = @"newvoicemessage.m4a";
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuid = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuidRef));
+    CFRelease(uuidRef);
+    _audioFileName = [NSString stringWithFormat:@"%@.m4a",uuid];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    _recorderFilePath =  [NSString stringWithFormat:@"%@/Bud Media/%@", documentsDirectory, _audioFileName];
+    _recorderFilePath = [self.voiceMessagesPath stringByAppendingPathComponent:_audioFileName];
     
     NSURL *url = [NSURL fileURLWithPath:_recorderFilePath];
     err = nil;

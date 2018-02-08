@@ -114,6 +114,7 @@ typedef void(^completionBlockType)(void);
 @property (nonatomic) BOOL inMicMode;
 
 @property (strong, nonatomic) NSURL *voiceMessage;
+@property (strong, nonatomic) NSString *voiceMessagesPath;
 
 -(void)customizeForBud;
 -(void)setRightButton;

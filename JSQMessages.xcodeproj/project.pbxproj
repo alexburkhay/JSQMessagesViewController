@@ -11,24 +11,6 @@
 		405093FF2029E2120088A279 /* BudMessagesInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 405093FE2029E2120088A279 /* BudMessagesInputToolbar.m */; };
 		405094032029E2480088A279 /* BudMessagesToolbarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 405094022029E2480088A279 /* BudMessagesToolbarContentView.m */; };
 		405094122029EAC80088A279 /* BudMessagesToolbarContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405094012029E2480088A279 /* BudMessagesToolbarContentView.xib */; };
-		405094262029FD040088A279 /* btnMicRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050941D2029FD030088A279 /* btnMicRed.png */; };
-		405094272029FD040088A279 /* btnMic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050941E2029FD030088A279 /* btnMic@2x.png */; };
-		405094282029FD040088A279 /* btnMicOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050941F2029FD030088A279 /* btnMicOff@2x.png */; };
-		405094292029FD040088A279 /* btnMicRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094202029FD030088A279 /* btnMicRed@2x.png */; };
-		4050942A2029FD040088A279 /* btnMicOff@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094212029FD030088A279 /* btnMicOff@3x.png */; };
-		4050942B2029FD040088A279 /* btnMic.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094222029FD030088A279 /* btnMic.png */; };
-		4050942C2029FD040088A279 /* btnMicRed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094232029FD040088A279 /* btnMicRed@3x.png */; };
-		4050942D2029FD040088A279 /* btnMicOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094242029FD040088A279 /* btnMicOff.png */; };
-		4050942E2029FD040088A279 /* btnMic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 405094252029FD040088A279 /* btnMic@3x.png */; };
-		40509432202A09100088A279 /* btnSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050942F202A09100088A279 /* btnSend.png */; };
-		40509433202A09100088A279 /* btnSend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40509430202A09100088A279 /* btnSend@2x.png */; };
-		40509434202A09100088A279 /* btnSend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40509431202A09100088A279 /* btnSend@3x.png */; };
-		40509438202A26740088A279 /* btnSendOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40509435202A26730088A279 /* btnSendOff@2x.png */; };
-		40509439202A26740088A279 /* btnSendOff@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40509436202A26740088A279 /* btnSendOff@3x.png */; };
-		4050943A202A26740088A279 /* btnSendOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 40509437202A26740088A279 /* btnSendOff.png */; };
-		4050943E202A27660088A279 /* btnAddItemToChat.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050943B202A27650088A279 /* btnAddItemToChat.png */; };
-		4050943F202A27660088A279 /* btnAddItemToChat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050943C202A27660088A279 /* btnAddItemToChat@3x.png */; };
-		40509440202A27660088A279 /* btnAddItemToChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4050943D202A27660088A279 /* btnAddItemToChat@2x.png */; };
 		54271E3B1C90469100294290 /* jsq_messages_sample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 54271E3A1C90469100294290 /* jsq_messages_sample.m4a */; };
 		54271E3E1C905B9200294290 /* JSQAudioMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 54271E3D1C905B9200294290 /* JSQAudioMediaItem.m */; };
 		54271E401C905D1600294290 /* JSQAudioMediaItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54271E3F1C905D1600294290 /* JSQAudioMediaItemTests.m */; };
@@ -155,24 +137,6 @@
 		405094002029E2480088A279 /* BudMessagesToolbarContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BudMessagesToolbarContentView.h; sourceTree = "<group>"; };
 		405094012029E2480088A279 /* BudMessagesToolbarContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BudMessagesToolbarContentView.xib; sourceTree = "<group>"; };
 		405094022029E2480088A279 /* BudMessagesToolbarContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BudMessagesToolbarContentView.m; sourceTree = "<group>"; };
-		4050941D2029FD030088A279 /* btnMicRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnMicRed.png; sourceTree = "<group>"; };
-		4050941E2029FD030088A279 /* btnMic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMic@2x.png"; sourceTree = "<group>"; };
-		4050941F2029FD030088A279 /* btnMicOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMicOff@2x.png"; sourceTree = "<group>"; };
-		405094202029FD030088A279 /* btnMicRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMicRed@2x.png"; sourceTree = "<group>"; };
-		405094212029FD030088A279 /* btnMicOff@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMicOff@3x.png"; sourceTree = "<group>"; };
-		405094222029FD030088A279 /* btnMic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnMic.png; sourceTree = "<group>"; };
-		405094232029FD040088A279 /* btnMicRed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMicRed@3x.png"; sourceTree = "<group>"; };
-		405094242029FD040088A279 /* btnMicOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnMicOff.png; sourceTree = "<group>"; };
-		405094252029FD040088A279 /* btnMic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMic@3x.png"; sourceTree = "<group>"; };
-		4050942F202A09100088A279 /* btnSend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnSend.png; sourceTree = "<group>"; };
-		40509430202A09100088A279 /* btnSend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSend@2x.png"; sourceTree = "<group>"; };
-		40509431202A09100088A279 /* btnSend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSend@3x.png"; sourceTree = "<group>"; };
-		40509435202A26730088A279 /* btnSendOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSendOff@2x.png"; sourceTree = "<group>"; };
-		40509436202A26740088A279 /* btnSendOff@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSendOff@3x.png"; sourceTree = "<group>"; };
-		40509437202A26740088A279 /* btnSendOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnSendOff.png; sourceTree = "<group>"; };
-		4050943B202A27650088A279 /* btnAddItemToChat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnAddItemToChat.png; sourceTree = "<group>"; };
-		4050943C202A27660088A279 /* btnAddItemToChat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnAddItemToChat@3x.png"; sourceTree = "<group>"; };
-		4050943D202A27660088A279 /* btnAddItemToChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnAddItemToChat@2x.png"; sourceTree = "<group>"; };
 		54271E3A1C90469100294290 /* jsq_messages_sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = jsq_messages_sample.m4a; sourceTree = "<group>"; };
 		54271E3C1C905B9200294290 /* JSQAudioMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQAudioMediaItem.h; sourceTree = "<group>"; };
 		54271E3D1C905B9200294290 /* JSQAudioMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQAudioMediaItem.m; sourceTree = "<group>"; };
@@ -472,24 +436,6 @@
 		88A25F3F19D8E01A00924534 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				4050943B202A27650088A279 /* btnAddItemToChat.png */,
-				4050943D202A27660088A279 /* btnAddItemToChat@2x.png */,
-				4050943C202A27660088A279 /* btnAddItemToChat@3x.png */,
-				4050942F202A09100088A279 /* btnSend.png */,
-				40509430202A09100088A279 /* btnSend@2x.png */,
-				40509431202A09100088A279 /* btnSend@3x.png */,
-				40509437202A26740088A279 /* btnSendOff.png */,
-				40509435202A26730088A279 /* btnSendOff@2x.png */,
-				40509436202A26740088A279 /* btnSendOff@3x.png */,
-				405094222029FD030088A279 /* btnMic.png */,
-				4050941E2029FD030088A279 /* btnMic@2x.png */,
-				405094252029FD040088A279 /* btnMic@3x.png */,
-				405094242029FD040088A279 /* btnMicOff.png */,
-				4050941F2029FD030088A279 /* btnMicOff@2x.png */,
-				405094212029FD030088A279 /* btnMicOff@3x.png */,
-				4050941D2029FD030088A279 /* btnMicRed.png */,
-				405094202029FD030088A279 /* btnMicRed@2x.png */,
-				405094232029FD040088A279 /* btnMicRed@3x.png */,
 				8861666C19F492B70025B958 /* JSQMessagesAssets.bundle */,
 			);
 			path = Assets;
@@ -761,7 +707,7 @@
 				TargetAttributes = {
 					88A25F0119D8DEC400924534 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = BZ987Z2U5S;
+						DevelopmentTeam = TBZL49U3B7;
 						LastSwiftMigration = 0900;
 					};
 					88A25F1A19D8DEC400924534 = {
@@ -808,35 +754,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4050943A202A26740088A279 /* btnSendOff.png in Resources */,
-				405094282029FD040088A279 /* btnMicOff@2x.png in Resources */,
-				405094292029FD040088A279 /* btnMicRed@2x.png in Resources */,
-				40509439202A26740088A279 /* btnSendOff@3x.png in Resources */,
 				8861666D19F492B70025B958 /* JSQMessagesAssets.bundle in Resources */,
-				405094272029FD040088A279 /* btnMic@2x.png in Resources */,
-				40509434202A09100088A279 /* btnSend@3x.png in Resources */,
 				88A25FCF19D8E01A00924534 /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
-				4050943F202A27660088A279 /* btnAddItemToChat@3x.png in Resources */,
 				88A25FCD19D8E01A00924534 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
-				40509438202A26740088A279 /* btnSendOff@2x.png in Resources */,
-				4050942C2029FD040088A279 /* btnMicRed@3x.png in Resources */,
 				88A25FD619D8E01A00924534 /* JSQMessagesToolbarContentView.xib in Resources */,
 				88A25F3A19D8DF2500924534 /* Images.xcassets in Resources */,
-				4050942E2029FD040088A279 /* btnMic@3x.png in Resources */,
 				54271E3B1C90469100294290 /* jsq_messages_sample.m4a in Resources */,
-				40509432202A09100088A279 /* btnSend.png in Resources */,
 				88A25FBC19D8E01A00924534 /* JSQMessagesViewController.xib in Resources */,
 				88A25FD819D8E01A00924534 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				88A25F3919D8DF2500924534 /* Main.storyboard in Resources */,
-				4050942D2029FD040088A279 /* btnMicOff.png in Resources */,
-				4050942A2029FD040088A279 /* btnMicOff@3x.png in Resources */,
-				40509433202A09100088A279 /* btnSend@2x.png in Resources */,
-				40509440202A27660088A279 /* btnAddItemToChat@2x.png in Resources */,
-				4050942B2029FD040088A279 /* btnMic.png in Resources */,
 				405094122029EAC80088A279 /* BudMessagesToolbarContentView.xib in Resources */,
-				405094262029FD040088A279 /* btnMicRed.png in Resources */,
 				88A25FD419D8E01A00924534 /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
-				4050943E202A27660088A279 /* btnAddItemToChat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,7 +1098,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = BZ987Z2U5S;
+				DEVELOPMENT_TEAM = TBZL49U3B7;
 				INFOPLIST_FILE = "$(SRCROOT)/JSQMessagesDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1195,7 +1123,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = BZ987Z2U5S;
+				DEVELOPMENT_TEAM = TBZL49U3B7;
 				INFOPLIST_FILE = "$(SRCROOT)/JSQMessagesDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

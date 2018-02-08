@@ -51,6 +51,10 @@
     self.senderDisplayName = kJSQDemoAvatarDisplayNameBud;
     
     self.inputToolbar.contentView.textView.jsqPasteDelegate = self;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    self.inputToolbar.contentView.voiceMessagesPath = documentsDirectory;
+
     
     /**
      *  Load up our fake data for the demo
